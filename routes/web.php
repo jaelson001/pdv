@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PdvController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,9 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::middleware("auth")->group(function () {
-    Route::any('/',function(){
-        return view('pdv');
+    Route::any('/',[PdvController::class, "tela"]);
+    Route::get("/test", function(Request $request){
+        exit(Auth::user()->name);
     });
     Route::controller(ProductController::class)->group(function(){
         Route::get("/produtos", "tela");

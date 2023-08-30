@@ -44,6 +44,8 @@ input[type="number"]{
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%,0px);
+    box-shadow: 0px 0px 5px 1500px #0007;
+    z-index: 1;
 }
 .wrapper{
     display: flex;
@@ -77,6 +79,7 @@ input[type="number"]{
     border-radius: 10px;
     cursor: pointer;
     color:#fff;
+    text-align: center;
 }
 .btn-accent{
     background: var(--accent-color);
@@ -155,4 +158,22 @@ ul {
     align-items: center;
     align-content: center;
     line-height: 0;
+}
+.justify-center{
+    justify-content: center;
+}
+.justify-between{
+    justify-content: space-between;
+}
+.justify-start{
+    justify-content: flex-start;
+}
+.justify-end{
+    justify-content: flex-end;
+}
+
+.popup label {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
 }

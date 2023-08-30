@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-        <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
-
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
+@extends("sections.layout")
+@section("content")
+        <title>PDV</title>
     </head>
     <body class="antialiased">
         <aside class="side_menu">
@@ -37,8 +20,15 @@
         </aside>
         <div class="container">
             <div class="wrapper">
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                    <div class="row wrap justify-center">
+                        <center><strong class="text-error half">{{$error}}</strong><center>
+                    </div>
+                    @endforeach
+                @endif
                 <div class="row">
-                    <input type="number" id="search" class="form-input text-center" placeholder="Buscar (F)" style="width:100%; pointer-events: none;">
+                    <input type="text" id="search" class="form-input text-center" placeholder="Buscar (F)" style="width:100%; pointer-events: none;">
                 </div>
                 <div class="row form-input" style="height:150px;overflow: hidden;overflow-y:auto; align-items: flex-start;">
                     <table width="100%">
@@ -50,75 +40,22 @@
                             <th>Preço</th>
                             <th></th>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>123</td>
-                                <td>Teste</td>
-                                <td>Teste de produto</td>
-                                <td>1500</td>
-                                <td>R$15,00</td>
-                                <td class="text-danger"><i class="bi bi-x-lg"></i></td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Teste</td>
-                                <td>Teste de produto</td>
-                                <td>1500</td>
-                                <td>R$15,00</td>
-                                <td class="text-danger"><i class="bi bi-x-lg"></i></td>
-                            </tr>
-                            <tr>
-                                <td>123</td>
-                                <td>Teste</td>
-                                <td>Teste de produto</td>
-                                <td>1500</td>
-                                <td>R$15,00</td>
-                                <td class="text-danger"><i class="bi bi-x-lg"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <h3>Ultimo</h3>
-                <div class="row">
-                    <table width="100%">
-                        <thead>
-                            <th>#</th>
-                            <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>Preço</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>123</td>
-                                <td>Teste</td>
-                                <td>Teste do produto</td>
-                                <td>R$15,00</td>
-                            </tr>
+                        <tbody id="list">
                         </tbody>
                     </table>
                 </div>
                 <div class="row wrap">
-                    <h1>Total: R$45,00</h1>
+                    <h1>Total: <span id="total">R$0,00</span></h1>
                     <ul>
-                        <li>Débito</li>
-                        <li>Crédito</li>
-                        <li>PIX</li>
-                        <li>Dinheiro</li>
+                        <li class="btn btn-accent payment" data-payment="debito">Débito</li>
+                        <li class="btn btn-accent payment" data-payment="credito">Crédito</li>
+                        <li class="btn btn-accent payment" data-payment="pix">PIX</li>
+                        <li class="btn btn-accent payment" data-payment="dinheiro">Dinheiro</li>
                     </ul>
-                    <button class="btn btn-secondary">Limpar todos</button>
+                    <button class="btn btn-error clear">Limpar todos</button>
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            document.addEventListener("keydown",function(event){
-                if(event.key == "q" || event.key == "Q"){
-                    event.preventDefault();
-                  document.querySelector('#qtd').focus();
-                }else if(event.key == "f" || event.key == "f"){
-                    event.preventDefault();
-                  document.querySelector('#search').focus();
-                }
-            });
-        </script>
+        @vite(['resources/js/snackbar.js','resources/js/pdv.js'])
     </body>
-</html>
+@endsection

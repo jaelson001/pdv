@@ -24,7 +24,10 @@ class AuthController extends Controller
         if(Auth::attempt([
             "email" => $request->email, 
             "password" => $request->senha
-        ])){ return redirect("/"); }
+        ], true)){ 
+            $request->session()->regenerate();
+            return redirect("/"); 
+        }
     }
 
     public function sair(){
