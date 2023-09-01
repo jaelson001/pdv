@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             "accent-color"=> "#ff8915",
             "accent-secondary"=> "#242424",
             "theme"=> "dark",//dark, light, system
-            "logo"=> "",
+            "logo"=> "public/logo.ico",
         ];
         foreach($defaults as $key=> $value){
             Configuration::factory()->create([
