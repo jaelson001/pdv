@@ -72,6 +72,7 @@ document.addEventListener("click", (event) => {
     if(x.getAttribute("data-delete") != undefined){
         cart.remove(x.getAttribute("data-delete"));
     }else if(x.classList != undefined && x.classList.contains("payment")){
+        if(cart.lista.length ==0){ snackBar("Nenhum produto na lista!", "WARNING"); return;}
         let payment = x.getAttribute("data-payment");
         //enviar pra fechar pedido
         fetch("/api/order", {

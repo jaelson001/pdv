@@ -234,6 +234,14 @@ label.drop_area {
     margin-bottom: 20px;
     margin-right: 0px;
 }
+td[data-delete] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+td[data-delete] i{
+    pointer-events: none;
+}
 @media (max-width: 1200px){ 
     .side_menu {
         position: fixed;

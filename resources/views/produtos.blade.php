@@ -61,8 +61,7 @@
 				<button class="btn btn-success" id="cadastrar">Cadastrar</button>
 			</div>
 			<div class="row">
-				<input type="text" id="search" class="form-input" placeholder="Buscar" style="width:80%;">
-				<button class="btn btn-success">Pesquisar</button>
+				<input type="text" id="search" class="form-input" placeholder="Buscar" style="width:100%;">
 			</div>
 				<hr style="width:50%; border:1px solid var(--border);" />
 			<div class="row" style="max-height: 54vh;overflow: hidden;overflow-y: auto; padding:0px 10px;">
@@ -78,7 +77,7 @@
 					<tbody>
 						@if(!empty($products))
 						@foreach($products as $item)
-						<tr>
+						<tr data-name="{{$item->name}}">
 							<td>{{$item->code}}</td>
 							<td>{{$item->name}}</td>
 							<td>{{$item->description}}</td>
@@ -87,6 +86,11 @@
 							<td>
 								<span class="editar" data-item="{{$item->id}}">
 									<i class="bi bi-pencil-square"></i>
+								</span>
+							</td>
+							<td>
+								<span class="deletar text-danger" data-delete="{{$item->id}}">
+									<i class="bi bi-x-lg" style="pointer-events: none;"></i>
 								</span>
 							</td>
 						</tr>
@@ -102,10 +106,10 @@
 		</div>
 		@if($errors->any())
 		@foreach($errors->all() as $error)
-			<sub class="text-error half">{{$error}}</sub>
+			<strong><sub class="text-error half">{{$error}}</sub></strong>
 		@endforeach
 		@endif
 	</div>
-	@vite(['resources/js/products.js'])
+	@vite(['resources/js/snackbar.js','resources/js/products.js'])
 </body>
 @endsection

@@ -74,21 +74,19 @@ class ProductController extends Controller
         return view("produtos", ["products" => $products]);
     }
 
-    public function delete($id): View{
+    public function delete($id): string{
         //validate
         if(!is_numeric($id)){
-            $products = Product::all();
-            return view("produtos", ["products" => $products])->withErrors(["delete" => "ID de produto inválido"]);
+            return json_encode(["error" => "ID de produto inválido"]);
         }
         //delete $id
         $res = Product::find($id)->delete();
-        //busca produtos 
-        $products = Product::all();
-        //return view
+
+        //return string
         if(!$res){
-            return view("produtos", ["products" => $products])->withErrors(["delete" => "Produto não encontrado no banco"]);
+            return json_encode(["error" => "Produto não encontrado no banco"]);
         }
-        return view("produtos", ["products" => $products]);
+        return json_encode(["success" => "Produto excluído"]);
     }
 
     public function research($code): string{

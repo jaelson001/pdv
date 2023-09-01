@@ -34,3 +34,33 @@ const clearPopup = (id) =>{
 		item.value = "";
 	});
 };
+
+document.addEventListener("click", (event) => {
+    let x = event.target;
+    if(x.getAttribute("data-delete") != undefined){
+    	let conf = confirm("Deseja mesmo excluir esse item?");
+    	if(conf){
+    		fetch("/api/product/"+x.getAttribute("data-delete"), {
+    			method:"DELETE"
+    		}).then((res) => res.json()).then((response) => {
+    			if(response.success != undefined){
+    				snackBar(response.success, "SUCCESS", 3_000);
+    			}else if(response.error != undefined){
+    				snackBar(response.error, "ERRROR", 3_000);
+    			}
+    		});
+    	}
+        
+    }
+});
+
+document.getElementById("search").addEventListener("keyup", function(event){
+	let text = event.target.value;
+	if(event.target.value.length == 0){
+		document.querySelectorAll("[data-name]").forEach((i) => { i.style.display = "table-row"; });
+	}else{
+		document.querySelectorAll("[data-name]").forEach((i) => { i.style.display = "none"; });
+		document.querySelectorAll(`[data-name *= "${text}"]`).forEach((i) => { i.style.display = "table-row"; });
+	}
+	
+});
