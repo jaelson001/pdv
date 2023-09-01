@@ -27,6 +27,8 @@ class AuthController extends Controller
         ], true)){ 
             $request->session()->regenerate();
             return redirect("/"); 
+        }else{
+            return redirect("login")->withErrors(["error" => "Erro ao fazer login"]);
         }
     }
 

@@ -18,7 +18,7 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            "code" => Str::random(11),
+            "code" => random_int(7890000000000, 7899999999999),
             "name" => "Product",
             "description" => "Product description",
             "quantity" => 1000,

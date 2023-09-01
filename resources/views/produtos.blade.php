@@ -1,4 +1,5 @@
 @extends("sections.layout")
+@include("sections.aside")
 @section("content")
 	<title>Produtos</title>
     @if(!empty($products))
@@ -8,40 +9,51 @@
     @endif
 </head>
 <body>
-	<aside class="side_menu">
-        <a class="menu_item" href="{{url('/')}}"><i class="bi bi-house"></i></a>
-        <a class="menu_item" href="{{url('/produtos')}}"><i class="bi bi-box"></i></a>
-        <a class="menu_item" href="#"><i class="bi bi-bar-chart"></i></a>
-        <a class="menu_item" href="#"><i class="bi bi-gear"></i></a>
-        @auth
-        <a class="menu_item" href="{{ url('/sair') }}" >
-            <i class="bi bi-box-arrow-left"></i>
-        </a>
-        @else
-        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">
-            <i class="bi bi-person"></i>
-        </a>
-        @endauth
-    </aside>
-	<div class="wrapper popup" id="popup" style="display: none;">
-		<input type="hidden" id="id" class="form-input" value="">
+	@yield("aside")
+	<form class="wrapper popup" id="popup_create" action="/product" method="POST" style="display: none;">
+		@csrf
+		@method("POST")
 		<label class="justify-between">Nome:
-			<input type="text" id="name" class="form-input" placeholder="nome">
+			<input type="text" id="name" name="name" class="form-input" placeholder="nome">
+		</label>
+		<label class="justify-between">Còdigo de barras:
+			<input type="text" id="code" name="code" class="form-input" placeholder="código de barras">
 		</label>
 		<label class="justify-between">Descrição:
-			<input type="text" id="description" class="form-input" placeholder="descrição">
+			<input type="text" id="description" name="description" class="form-input" placeholder="descrição">
 		</label>
 		<label class="justify-between">Preço:
-			<input type="number" id="price" class="form-input" placeholder="preço">
+			<input type="number" id="price" name="price" class="form-input" placeholder="preço">
 		</label>
 		<label class="justify-between">Quantidade:
-			<input type="number" id="quantity" class="form-input" placeholder="quantidade">
+			<input type="number" id="quantity" name="quantity" class="form-input" placeholder="quantidade">
 		</label>
 		<div class="row">
 			<button class="btn btn-error fechar_popup" id="cancelar">Cancelar</button>
-			<button class="btn btn-success" id="salvar">Salvar</button>
+			<button type="submit" class="btn btn-success" id="salvar_create">Salvar</button>
 		</div>
-	</div>
+	</form>
+	<form class="wrapper popup" id="popup_update" action="/product" method="POST" style="display: none;">
+		@csrf
+		@method("PUT")
+		<input type="hidden" name="id" id="update_id" class="form-input" value="">
+		<label class="justify-between">Nome:
+			<input type="text" name="name" id="update_name" class="form-input" placeholder="nome">
+		</label>
+		<label class="justify-between">Descrição:
+			<input type="text" name="description" id="update_description" class="form-input" placeholder="descrição">
+		</label>
+		<label class="justify-between">Preço:
+			<input type="number" name="price" id="update_price" class="form-input" placeholder="preço">
+		</label>
+		<label class="justify-between">Quantidade:
+			<input type="number" name="quantity" id="update_quantity" class="form-input" placeholder="quantidade">
+		</label>
+		<div class="row">
+			<button class="btn btn-error fechar_popup" id="cancelar">Cancelar</button>
+			<button type="submit" class="btn btn-success" id="salvar_update">Salvar</button>
+		</div>
+	</form>
 	<div class="container">
 		<div class="wrapper lista_produtos">
 			<div class="row">
@@ -53,7 +65,7 @@
 				<button class="btn btn-success">Pesquisar</button>
 			</div>
 				<hr style="width:50%; border:1px solid var(--border);" />
-			<div class="row">
+			<div class="row" style="max-height: 54vh;overflow: hidden;overflow-y: auto; padding:0px 10px;">
 				<table width="100%">
 					<thead>
 						<th>#</th>
@@ -88,6 +100,11 @@
 						@endif
 			</div>
 		</div>
+		@if($errors->any())
+		@foreach($errors->all() as $error)
+			<sub class="text-error half">{{$error}}</sub>
+		@endforeach
+		@endif
 	</div>
 	@vite(['resources/js/products.js'])
 </body>

@@ -37,7 +37,7 @@ class ProductController extends Controller
 
         //save
         $produto = new Product();
-        $res = $produto->fill($request->all())->save();
+        $res = $produto->fill($request->except("_token", "_method"))->save();
 
         //busca produtos 
         $products = Product::all();
@@ -49,7 +49,7 @@ class ProductController extends Controller
         return view("produtos", ["products" => $products]);
     }
 
-    public function update(Request $request, $id): View{
+    public function update(Request $request): View{
         //validate
         $request->validate([
             "name" => "required",
@@ -63,8 +63,8 @@ class ProductController extends Controller
             "quantity.min" => "Quantidade não pode ser negativa",
         ]);
         //save
-        $product = Product::find($id);
-        $res = $product->update($request->all());
+        $product = Product::find($request->id);
+        $res = $product->update($request->except("id","_token", "_method"));
         //busca produtos 
         $products = Product::all();
         //return view
@@ -91,13 +91,7 @@ class ProductController extends Controller
         return view("produtos", ["products" => $products]);
     }
 
-    /**
-     * Get the product from code  
-     * @method GET
-     * @param string $code | barcode from product
-     * @return json product
-    */
-    public function product($code): string{
+    public function research($code): string{
         $produto = Product::select("code", "name", "description", \DB::raw("1 as quantity"), "price")->where("code", $code)->first();
         $res = isset($produto->code) ? json_encode($produto) : '{"error":"Produto não cadastrado"}';
         return $res;

@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/products.js',
                 'resources/js/pdv.js',
+                'resources/js/configs.js',
                 'resources/js/snackbar.js',
             ],
             refresh: true,

@@ -1,29 +1,53 @@
-:root{
-    --primary-color:#dedede;
-    --primary-background:#1c1c1c;
-    --secondary-background:#242424;
-    --border:#191919;
-    --danger-color:#b93c3c;
-    --accent-color:#736157;
-    --accent-secondary:#3e3e3e;
+@media (prefers-color-scheme: dark) {
+    :root{
+        --primary-color:#dedede;
+        --primary-background:#1c1c1c;
+        --input-background:#1c1c1c;
+        --secondary-background:#242424;
+        --border:#191919;
+        --danger-color:#b93c3c;
+        --accent-color:#ff8915;
+        --accent-secondary:#242424;
+    }
 }
 @media (prefers-color-scheme: light) {
     :root{
         --primary-color:#6a6a6a;
         --primary-background:#f3f2ef;
+        --input-background:#f3f2ef;
         --secondary-background:#ffffff;
         --border: #e3e2e0;
         --danger-color:#b93c3c;
-        --accent-color:#736157;
-        --accent-secondary:#1c1c1c;
+        --accent-color:#ff8915;
+        --accent-secondary:#333333;
     }
+}
+
+.light{
+    --primary-color:#6a6a6a;
+    --primary-background:#f3f2ef;
+    --input-background:#f3f2ef;
+    --secondary-background:#ffffff;
+    --border: #e3e2e0;
+    --danger-color:#b93c3c;
+    --accent-color:#ff8915;
+    --accent-secondary:#333333;
+}
+.dark{
+    --primary-color:#dedede;
+    --primary-background:#1c1c1c;
+    --input-background:#1c1c1c;
+    --secondary-background:#242424;
+    --border:#191919;
+    --danger-color:#b93c3c;
+    --accent-color:#ff8915;
+    --accent-secondary:#242424;
 }
 body {
     background: var(--primary-background);
     color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    height: 100vh;
+    display: block;
+    height: auto;
     padding: 0px;
     margin: 0px;
     font-family: 'Nunito', sans-serif;
@@ -33,9 +57,10 @@ input[type="number"]{
 }
 .container{
     display: flex;
+    flex-flow: row wrap;
     width: 100%;
     max-width: 1100px;
-    margin: 10px auto;
+    margin: 5% auto 10px;
     align-content: center;
 }
 .popup {
@@ -68,7 +93,7 @@ input[type="number"]{
     border: 1px solid var(--border);
     border-radius: 20px;
     margin: 5px;
-    background: var(--primary-background);
+    background: var(--input-background);
     color: var(--primary-color);
 }
 .btn {
@@ -92,6 +117,9 @@ input[type="number"]{
 }
 .btn-secondary{
     background: var(--accent-secondary);
+}
+.btn-opaque{
+    background: var(--primary-background);
 }
 .text-accent{
     color: var(--accent-color);
@@ -138,20 +166,23 @@ ul {
 .side_menu {
   position: fixed;
   top: 50%;
-  height: 40%;
+  height: 95%;
+  width: auto;
   display: flex;
   flex-flow: column wrap;
   padding: 10px;
-  justify-content: space-around;
-  left: 50px;
+  justify-content: space-between;
+  left: 10px;
   transform: translateY(-50%);
+  border-radius: 15px;
+  background: var(--accent-secondary);
+  border:1px solid var(--border);
 }
 .menu_item {
     padding: 10px;
     width: 20px;
     height: 20px;
     color: #fff;
-    background: var(--accent-color);
     border-radius: 50px;
     display: flex;
     justify-content: center;
@@ -176,4 +207,57 @@ ul {
     width: 100%;
     display: flex;
     align-items: baseline;
+}
+label.color_label {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #555;
+    border-radius: 50px;
+    box-shadow: 0px 0px 4px #000;
+    cursor: pointer;
+}
+
+label.drop_area {
+    background-size: cover;
+    outline: 2px dashed var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    outline-offset: 2px;
+}
+.drop_area>img {
+    width: 100%;
+    height: 100%;
+}
+.logo{
+    margin-bottom: 20px;
+    margin-right: 0px;
+}
+@media (max-width: 1200px){ 
+    .side_menu {
+        position: fixed;
+        top: 10px;
+        width: 95%;
+        height: auto;
+        display: flex;
+        flex-flow: row nowrap;
+        padding: 10px;
+        justify-content: space-between;
+        left: 50%;
+        transform: translate(-50%);
+        border:1px solid var(--border);
+    }
+    .container{
+        margin:8% auto 10px;
+        width: 95%;
+    }
+    .side_menu > div{
+        display: inline-flex;
+        margin-left: 20px;
+    }
+    .logo{
+        margin-right: 20px;
+        margin-bottom: 0px;
+    }
 }

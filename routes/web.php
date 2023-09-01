@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PdvController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ConfigurationController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -23,11 +24,13 @@ Route::middleware("auth")->group(function () {
         exit(Auth::user()->name);
     });
     Route::controller(ProductController::class)->group(function(){
-        Route::get("/produtos", "tela");
-        Route::put("/produtos/{id}", "update");
-        Route::post("/produtos", "create");
-        Route::delete("/produtos/{id}", "delete");
+        Route::get("products", "tela");
+        Route::put("/product", "update");
+        Route::post("/product", "create");
+        Route::delete("/product/{id}", "delete");
     });
+    Route::get("configs", [ConfigurationController::class, "tela"]);
+    Route::post("configs", [ConfigurationController::class, "update"]);
 });
 
 Route::view('/login', "login")->name('login');

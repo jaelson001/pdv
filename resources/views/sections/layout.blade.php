@@ -1,3 +1,7 @@
+@php
+	$configs = \App\Models\Configuration::asArray();
+	$barColor = \App\Models\Configuration::sideTextColor($configs->accent_secondary);
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -9,14 +13,84 @@
 
 	    <!-- Styles -->
 	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-	    @vite(['resources/css/app.css', 'resources/js/app.js'])
+	    <link rel="stylesheet" type="text/css" href="{{Vite::asset('resources/css/app.css')}}">
+	    <style type="text/css">
+	    	@switch($configs->theme)
+	    		@case("system")
+			    	@media (prefers-color-scheme: dark) {
+					    :root{
+					        --primary-background:#1c1c1c;
+					        --input-background:#1c1c1c;
+					        --secondary-background:#242424;
+					        --border:#191919;
+					        --danger-color:#b93c3c;
+					        @foreach($configs as $key => $value)
+				    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
+				    		@endforeach
+					    }
+					}
+					@media (prefers-color-scheme: light) {
+					    :root{
+					        --primary-background:#f3f2ef;
+					        --input-background:#f3f2ef;
+					        --secondary-background:#ffffff;
+					        --border: #e3e2e0;
+					        --danger-color:#b93c3c;
+					        @foreach($configs as $key => $value)
+				    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
+				    		@endforeach
+					    }
+					}
+				@break
+				@case("light")
+					:root{
+					    --primary-background:#f3f2ef;
+					    --input-background:#f3f2ef;
+					    --secondary-background:#ffffff;
+					    --border: #e3e2e0;
+					    --danger-color:#b93c3c;
+					    @foreach($configs as $key => $value)
+			    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
+			    		@endforeach
+					}
+				@break
+				@case("dark")
+					:root{
+					    --primary-background:#1c1c1c;
+					    --input-background:#1c1c1c;
+					    --secondary-background:#242424;
+					    --border:#191919;
+					    --danger-color:#b93c3c;
+			    		@foreach($configs as $key => $value)
+			    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
+			    		@endforeach
+					}
+			@endswitch
+			.menu_item{
+				color:{{$barColor}};
+			}
+	    </style>
+	    <script type="text/javascript" src="{{Vite::asset('resources/js/app.js')}}"></script>
+	    @auth
 	    <script>
 	    	window.user = "{{ auth()->user()->name }}"
 	    </script>
+	    @endauth
 	    <style>
 	        body {
 	            font-family: 'Nunito', sans-serif;
 	        }
 	    </style>
+	    <script type="text/javascript">
+	    	window.sideTextColor = hex => {
+			    let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+			    hex = hex.replace(shorthandRegex, (m, r, g, b) => {
+			        return r + r + g + g + b + b;
+			    });
+			    let rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+			    rgb = (rgb ? { r: parseInt(rgb[1], 16), g: parseInt(rgb[2], 16), b: parseInt(rgb[3], 16) } : { r: 0, g: 0, b: 0 });
+			    return '#' + (Math.round(((parseInt(rgb.r) * 299) + (parseInt(rgb.g) * 587) + (parseInt(rgb.b) * 114)) /1000) > 150 ? "555" : "FFF" );
+			}
+	    </script>
 	@yield('content')
 </html>
