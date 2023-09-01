@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $defaults = [
-            "primary-color"=> "#dedede",
-            "primary-background"=> "#1c1c1c",
-            "secondary-background"=> "#242424",
-            "accent-color"=> "#ff8915",
-            "accent-secondary"=> "#242424",
+            "primary_color"=> "#dedede",
+            "primary_background"=> "#1c1c1c",
+            "secondary_background"=> "#242424",
+            "accent_color"=> "#ff8915",
+            "accent_secondary"=> "#242424",
             "theme"=> "dark",//dark, light, system
             "logo"=> "public/logo.ico",
         ];
