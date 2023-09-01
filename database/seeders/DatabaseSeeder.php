@@ -27,8 +27,6 @@ class DatabaseSeeder extends Seeder
 
         $defaults = [
             "primary_color"=> "#dedede",
-            "primary_background"=> "#1c1c1c",
-            "secondary_background"=> "#242424",
             "accent_color"=> "#ff8915",
             "accent_secondary"=> "#242424",
             "theme"=> "dark",//dark, light, system
