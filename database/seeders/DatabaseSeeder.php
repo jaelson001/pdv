@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\Product::factory(5)->create();
 
-        /*User::factory()->create([
+        User::factory()->create([
             'name' => 'Jaelson',
             'email' => 'jaelsonjacinto@outlook.com',
             'password' => Hash::make("Jesus1diavira!"),
-        ]);*/
+        ]);
 
         $defaults = [
             "primary-color"=> "#dedede",
