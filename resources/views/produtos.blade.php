@@ -23,7 +23,7 @@
 			<input type="text" id="description" name="description" class="form-input" placeholder="descrição">
 		</label>
 		<label class="justify-between">Preço:
-			<input type="number" id="price" name="price" class="form-input" placeholder="preço">
+			<input type="number" id="price" name="price" class="form-input" placeholder="100 = R$1,00">
 		</label>
 		<label class="justify-between">Quantidade:
 			<input type="number" id="quantity" name="quantity" class="form-input" placeholder="quantidade">
@@ -64,15 +64,15 @@
 				<input type="text" id="search" class="form-input" placeholder="Buscar" style="width:100%;">
 			</div>
 				<hr style="width:50%; border:1px solid var(--border);" />
-			<div class="row" style="max-height: 54vh;overflow: hidden;overflow-y: auto; padding:0px 10px;">
+			<div class="row" style="max-height: 54vh;overflow: hidden;overflow-y: auto; padding:0px 10px;align-items: flex-start;">
 				<table width="100%">
 					<thead>
-						<th>#</th>
+						<th>Código</th>
 						<th>Nome</th>
 						<th>Descrição</th>
 						<th>Quantidade</th>
 						<th>Preço</th>
-						<th>Action</th>
+						<th style="text-align: center;">Ações</th>
 					</thead>
 					<tbody>
 						@if(!empty($products))
@@ -83,12 +83,10 @@
 							<td>{{$item->description}}</td>
 							<td>{{$item->quantity}}</td>
 							<td>{{"R$".number_format(($item->price / 100), 2, ",", "")}}</td>
-							<td>
+							<td style="display:flex;justify-content: space-around;">
 								<span class="editar" data-item="{{$item->id}}">
 									<i class="bi bi-pencil-square"></i>
 								</span>
-							</td>
-							<td>
 								<span class="deletar text-danger" data-delete="{{$item->id}}">
 									<i class="bi bi-x-lg" style="pointer-events: none;"></i>
 								</span>
