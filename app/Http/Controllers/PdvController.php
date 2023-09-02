@@ -14,7 +14,7 @@ use App\Models\OrderProduct;
 class PdvController extends Controller
 {
     public function tela(){
-        $estoqueBaixo = Product::where("quantity", "<", 990)->count();
+        $estoqueBaixo = Product::where("quantity", "<", 100)->count();
         if($estoqueBaixo > 0){
             return view("pdv")->withErrors(["estoque" => "Há produtos com poucos itens no estoque!"]);
         }
@@ -40,7 +40,7 @@ class PdvController extends Controller
         //cria produtos do pedido
         foreach($carrinho as $item){
             $prodsPedido = new OrderProduct();
-            $prodsPedido->order = $pedido->id;
+            $prodsPedido->order_id = $pedido->id;
             $prodsPedido->product = Product::where("code", $item->code)->first()->name;
             $prodsPedido->price = $item->price;
             $prodsPedido->save();
@@ -50,5 +50,10 @@ class PdvController extends Controller
 
         \event(new OrderPurchased($pedido));
         return '{"success":"Pedido fechado"}';
+    }
+
+    public function orders(){
+        $orders = Order::orderBy("created_at", "DESC")->with("products")->get();
+        return view('orders',['orders' => $orders]);
     }
 }

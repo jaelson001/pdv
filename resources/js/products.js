@@ -62,5 +62,4 @@ document.getElementById("search").addEventListener("keyup", function(event){
 		document.querySelectorAll("[data-name]").forEach((i) => { i.style.display = "none"; });
 		document.querySelectorAll(`[data-name *= "${text}"]`).forEach((i) => { i.style.display = "table-row"; });
 	}
-	
 });

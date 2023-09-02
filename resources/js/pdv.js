@@ -40,11 +40,15 @@ const createListItems = (lista, destiny) => {
         for(let i = 0; i< data.length; i++){
             let cell = document.createElement("td");
             cell.innerText = keys[i] !== "price" ? data[i] : "R$"+parseFloat(data[i] / 100).toFixed(2);
-            if(keys[i] !== "price"){
+            if(keys[i] === "price"){
+                cell.innerText = "R$"+parseFloat(data[i] / 100).toFixed(2);
+                cell.classList.add("text-success");
+                total += data[i];
+            }else if(keys[i] === "code"){
+                cell.classList.add("text-accent"); 
                 cell.innerText = data[i]; 
             }else{ 
-                cell.innerText = "R$"+parseFloat(data[i] / 100).toFixed(2);
-                total += data[i];
+                cell.innerText = data[i]; 
             }
             line.appendChild(cell);
         }

@@ -20,7 +20,7 @@
                 <div class="row form-input" style="height:350px;overflow: hidden;overflow-y:auto; align-items: flex-start;">
                     <table width="100%">
                         <thead>
-                            <th>#</th>
+                            <th>Cod. barras</th>
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Quantidade</th>

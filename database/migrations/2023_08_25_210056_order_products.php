@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::dropIfExists('order_products');
         Schema::create('order_products', function (Blueprint $table) {
             $table->id();
-            $table->integer('order');
+            $table->integer('order_id');
             $table->string('product');
             $table->integer('price');
             $table->timestamps();

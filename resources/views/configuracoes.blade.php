@@ -21,7 +21,7 @@
 			@csrf
 			@if(isset($configs))
 				<div class="row">
-					<label class="half">Logoipo (50px x 50px):</label>
+					<label class="half">Logotipo (50px x 50px):</label>
 					<input type="file" name="logo" id="logo" style="display:none;">
 					<label class="drop_area" for="logo">
 						<img src="{{!empty($configs->logo) ? Storage::url($configs->logo) : '/logo.ico'}}" alt="Logo" />
@@ -57,6 +57,13 @@
 				 @vite(['resources/js/snackbar.js','resources/js/configs.js'])
 			@endif
 		</form>
+		@if($errors->any())
+			@foreach($errors as $error)
+			<div class="row">
+				<span class="text-error">{{$error}}</span>
+			</div>
+			@endforeach
+		@endif
 		@if(isset($response))
 		<script type="text/javascript"> snackBar({{$response}}, "SUCCESS");</script>
 		@endif

@@ -9,6 +9,7 @@
         </a>
         <a class="menu_item" href="{{url('/')}}"><i class="bi bi-house"></i></a>
         <a class="menu_item" href="{{url('/products')}}"><i class="bi bi-box"></i></a>
+        <a class="menu_item" href="{{url('/orders')}}"><i class="bi bi-basket2"></i></a>
         <a class="menu_item" href="#"><i class="bi bi-bar-chart"></i></a>
     </div>
     <div>

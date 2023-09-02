@@ -75,31 +75,32 @@
 						<th style="text-align: center;">Ações</th>
 					</thead>
 					<tbody>
-						@if(!empty($products))
-						@foreach($products as $item)
-						<tr data-name="{{$item->name}}">
-							<td>{{$item->code}}</td>
-							<td>{{$item->name}}</td>
-							<td>{{$item->description}}</td>
-							<td>{{$item->quantity}}</td>
-							<td>{{"R$".number_format(($item->price / 100), 2, ",", "")}}</td>
-							<td style="display:flex;justify-content: space-around;">
-								<span class="editar" data-item="{{$item->id}}">
-									<i class="bi bi-pencil-square"></i>
-								</span>
-								<span class="deletar text-danger" data-delete="{{$item->id}}">
-									<i class="bi bi-x-lg" style="pointer-events: none;"></i>
-								</span>
-							</td>
-						</tr>
-						@endforeach
-							</tbody>
-						</table>
-						@else
-							</tbody>
-						</table>
-						<center><h3>Nenhum produto cadastrado!</h3></center>
-						@endif
+					@if(!empty($products))
+					@foreach($products as $item)
+					<tr data-name="{{$item->name}}">
+						<td class="text-accent">{{$item->code}}</td>
+						<td>{{$item->name}}</td>
+						<td>{{$item->description}}</td>
+						<td>{{$item->quantity}}</td>
+						<td class="text-success">{{"R$".number_format(($item->price / 100), 2, ",", "")}}</td>
+						<td style="display:flex;justify-content: space-around;">
+							<span class="editar" data-item="{{$item->id}}">
+								<i class="bi bi-pencil-square"></i>
+							</span>
+							<span class="deletar text-danger" data-delete="{{$item->id}}">
+								<i class="bi bi-x-lg" style="pointer-events: none;"></i>
+							</span>
+						</td>
+					</tr>
+					@endforeach
+					</tbody>
+				</table>
+					@else
+					</tbody>
+				</table>
+				<h2 class="w-100 justify-center text-accent" style="font-size: 3rem;margin: 10px;"><i class="bi bi-box"></i></h2>
+				<h3 class="w-100 justify-center">Nenhum produto cadastrado ainda!</h3>
+					@endif
 			</div>
 		</div>
 		@if($errors->any())

@@ -29,6 +29,7 @@ Route::middleware("auth")->group(function () {
         Route::post("/product", "create");
         Route::delete("/product/{id}", "delete");
     });
+    Route::get('/orders',[PdvController::class, "orders"]);
     Route::get("configs", [ConfigurationController::class, "tela"]);
     Route::post("configs", [ConfigurationController::class, "update"]);
 });
