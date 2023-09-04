@@ -18,7 +18,10 @@
 						@endforeach
 						@endif
             		</div>
-				    <input class="btn btn-accent" type="submit" name="Entrar" />
+				    <span class="half justify-between">
+						<input class="btn btn-accent" type="submit" value="Entrar" />
+						<a class="text-accent" href="/register">Registrar</a>
+		    		</span>
 				</form>
 			</div>
 		</div>

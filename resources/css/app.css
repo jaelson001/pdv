@@ -1,51 +1,51 @@
 @media (prefers-color-scheme: dark) {
     :root{
-        --primary-color:#dedede;
+        --primary:#dedede;
         --primary-background:#1c1c1c;
         --input-background:#1c1c1c;
         --secondary-background:#242424;
         --border:#191919;
         --danger-color:#b93c3c;
-        --accent-color:#ff8915;
-        --accent-secondary:#242424;
+        --accent:#ff8915;
+        --secondary:#242424;
     }
 }
 @media (prefers-color-scheme: light) {
     :root{
-        --primary-color:#6a6a6a;
+        --primary:#6a6a6a;
         --primary-background:#f3f2ef;
         --input-background:#f3f2ef;
         --secondary-background:#ffffff;
         --border: #e3e2e0;
         --danger-color:#b93c3c;
-        --accent-color:#ff8915;
-        --accent-secondary:#333333;
+        --accent:#ff8915;
+        --secondary:#333333;
     }
 }
 
 .light{
-    --primary-color:#6a6a6a;
+    --primary:#6a6a6a;
     --primary-background:#f3f2ef;
     --input-background:#f3f2ef;
     --secondary-background:#ffffff;
     --border: #e3e2e0;
     --danger-color:#b93c3c;
-    --accent-color:#ff8915;
-    --accent-secondary:#333333;
+    --accent:#ff8915;
+    --secondary:#333333;
 }
 .dark{
-    --primary-color:#dedede;
+    --primary:#dedede;
     --primary-background:#1c1c1c;
     --input-background:#1c1c1c;
     --secondary-background:#242424;
     --border:#191919;
     --danger-color:#b93c3c;
-    --accent-color:#ff8915;
-    --accent-secondary:#242424;
+    --accent:#ff8915;
+    --secondary:#242424;
 }
 body {
     background: var(--primary-background);
-    color: var(--primary-color);
+    color: var(--primary);
     display: block;
     height: auto;
     padding: 0px;
@@ -97,7 +97,7 @@ input[type="number"]{
     border-radius: 20px;
     margin: 5px;
     background: var(--input-background);
-    color: var(--primary-color);
+    color: var(--primary);
 }
 .btn {
     width: 100px;
@@ -110,7 +110,7 @@ input[type="number"]{
     text-align: center;
 }
 .btn-accent{
-    background: var(--accent-color);
+    background: var(--accent);
 }
 .btn-error {
     background: #b93c3c;
@@ -119,13 +119,13 @@ input[type="number"]{
     background: #3cb967;
 }
 .btn-secondary{
-    background: var(--accent-secondary);
+    background: var(--secondary);
 }
 .btn-opaque{
     background: var(--primary-background);
 }
 .text-accent{
-    color: var(--accent-color);
+    color: var(--accent);
 }
 .text-error {
     color: #b93c3c;
@@ -134,7 +134,7 @@ input[type="number"]{
     color: #3cb967;
 }
 .text-secondary{
-    color: var(--accent-secondary);
+    color: var(--secondary);
 }
 .row{
     width: 100%;
@@ -178,7 +178,7 @@ ul {
   left: 10px;
   transform: translateY(-50%);
   border-radius: 15px;
-  background: var(--accent-secondary);
+  background: var(--secondary);
   border:1px solid var(--border);
 }
 .menu_item {
@@ -226,7 +226,7 @@ label.color_label {
 
 label.drop_area {
     background-size: cover;
-    outline: 2px dashed var(--primary-color);
+    outline: 2px dashed var(--primary);
     width: 50px;
     height: 50px;
     border-radius: 10px;
@@ -271,7 +271,7 @@ td[data-delete] i{
 .row.order {
     width: 50%;
     flex-flow: row wrap;
-    border-right: 1px solid var(--primary-color);
+    border-right: 1px solid var(--primary);
     margin-top: 0;
     position: relative;
     justify-content: flex-end;
@@ -286,7 +286,7 @@ td[data-delete] i{
     content: "";
     width: 10px;
     height: 10px;
-    background: var(--primary-color);
+    background: var(--primary);
     border-radius: 50px;
     position: absolute;
     right: -5px;

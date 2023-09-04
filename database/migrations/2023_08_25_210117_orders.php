@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::dropIfExists('orders');
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->integer('company_id');
             $table->string('user');
             $table->integer('total');
             $table->string('payment');

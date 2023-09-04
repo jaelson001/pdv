@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::controller(ProductController::class)->group(function(){
-    Route::get("/product/{code}", "research");//Cause the user load the barcode to research
+    Route::get("/product/{company_id}/{code}", "research");//Cause the user load the barcode to research
     Route::delete("/product/{id}", "delete");
 });
 Route::post("order", [PdvController::class, "order"]);

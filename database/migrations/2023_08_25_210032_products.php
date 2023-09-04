@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('quantity')->default(1);
             $table->integer('price')->default(100);
+            $table->integer('company_id');
             $table->timestamps();
         });
     }

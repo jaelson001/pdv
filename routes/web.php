@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 Route::middleware("auth")->group(function () {
     Route::any('/',[PdvController::class, "tela"]);
     Route::get("/test", function(Request $request){
-        exit(Auth::user()->name);
+        exit(json_encode(Auth::user()));
     });
     Route::controller(ProductController::class)->group(function(){
         Route::get("products", "tela");
@@ -35,8 +35,10 @@ Route::middleware("auth")->group(function () {
 });
 
 Route::view('/login', "login")->name('login');
+Route::view('/register', "register")->name('register');
 
 Route::controller(AuthController::class)->group(function(){
     Route::post("/autenticar", "autenticar");
+    Route::post("/registrar", "registrar");
     Route::get("/sair", "sair");
 });

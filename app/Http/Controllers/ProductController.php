@@ -74,11 +74,7 @@ class ProductController extends Controller
         return view("produtos", ["products" => $products]);
     }
 
-    public function delete($id): string{
-        //validate
-        if(!is_numeric($id)){
-            return json_encode(["error" => "ID de produto inválido"]);
-        }
+    public function delete(int $id): string{
         //delete $id
         $res = Product::find($id)->delete();
 
@@ -89,8 +85,12 @@ class ProductController extends Controller
         return json_encode(["success" => "Produto excluído"]);
     }
 
-    public function research($code): string{
-        $produto = Product::select("code", "name", "description", \DB::raw("1 as quantity"), "price")->where("code", $code)->first();
+    public function research($company_id, $code): string{
+        $user = User::find($request->user);
+        if($user == null){ return '{"error":"Produto não cadastrado"}';}
+
+        $produto = Product::select("code", "name", "company_id", "description", \DB::raw("1 as quantity"), "price")
+            ->where("code", $code)->where("company_id", $user->company_id)->first();
         $res = isset($produto->code) ? json_encode($produto) : '{"error":"Produto não cadastrado"}';
         return $res;
     }

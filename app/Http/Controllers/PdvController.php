@@ -31,6 +31,7 @@ class PdvController extends Controller
         //cria pedido
         $carrinho = \collect(json_decode($carrinho));
         $pedido = new Order();
+        $pedido->company_id = $carrinho->max('company_id');
         $pedido->user = preg_replace("/[^A-Za-z ]/", '', $request->user);
         $pedido->total = $carrinho->sum('price');
         $pedido->payment = $request->payment;

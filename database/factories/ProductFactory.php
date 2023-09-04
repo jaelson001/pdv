@@ -20,6 +20,7 @@ class ProductFactory extends Factory
         return [
             "code" => random_int(7890000000000, 7899999999999),
             "name" => "Product",
+            "company_id" => 1,
             "description" => "Product description",
             "quantity" => 1000,
             "price" => 100,

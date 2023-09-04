@@ -1,11 +1,12 @@
 @php
-    $configs = \App\Models\Configuration::where("key", "logo")->first();
+    $id = auth()->user()->company_id;
+    $company = \App\Models\Company::find($id)->first();
 @endphp
 @section("aside")
 <aside class="side_menu">
     <div>
         <a class="menu_item logo" href="{{url('/')}}">
-            <img src="{{!empty($configs->value) ? Storage::url($configs->value) : '/logo.ico'}}" style="height:auto;width:50px; border-radius: 15px;">
+            <img src="{{!empty($company->logo) ? Storage::url($company->logo) : '/logo.ico'}}" style="height:auto;width:50px; border-radius: 15px;">
         </a>
         <a class="menu_item" href="{{url('/')}}"><i class="bi bi-house"></i></a>
         <a class="menu_item" href="{{url('/products')}}"><i class="bi bi-box"></i></a>

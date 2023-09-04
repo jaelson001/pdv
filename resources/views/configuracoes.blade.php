@@ -1,15 +1,7 @@
 @extends("sections.layout")
 @include("sections.aside")
 @section("content")
-	@if(isset($configs))
-		@php
-			$c = [];
-			foreach($configs as $item){ 
-				$c[$item->key] = $item->value; 
-			}
-			$configs = json_decode(json_encode($c));
-		@endphp
-	@endif
+	
 	<title>Configurações</title>
 </head>
 <body>
@@ -29,18 +21,18 @@
 				</div>
 				<div class="row">
 					<label class="half">Cor do texto:</label>
-					<input type="color" name="primary_color" id="primary_color" style="display:none;" value="{{$configs->primary_color}}" />
-					<label class="color_label" style="background:{{$configs->primary_color}}" for="primary_color"> </label>
+					<input type="color" name="primary" id="primary" style="display:none;" value="{{$configs->primary}}" />
+					<label class="color_label" style="background:{{$configs->primary}}" for="primary"> </label>
 				</div>
 				<div class="row">
 					<label class="half">Cor do destaque:</label>
-					<input type="color" name="accent_color" id="accent_color" style="display:none;" value="{{$configs->accent_color}}" />
-					<label class="color_label" style="background:{{$configs->accent_color}}" for="accent_color"> </label>
+					<input type="color" name="accent" id="accent" style="display:none;" value="{{$configs->accent}}" />
+					<label class="color_label" style="background:{{$configs->accent}}" for="accent"> </label>
 				</div>
 				<div class="row">
 					<label class="half">Cor da barra flutuante:</label>
-					<input type="color" name="accent_secondary" id="accent_secondary" style="display:none;" value="{{$configs->accent_secondary}}" />
-					<label class="color_label" style="background:{{$configs->accent_secondary}}" for="accent_secondary"> </label>
+					<input type="color" name="secondary" id="secondary" style="display:none;" value="{{$configs->secondary}}" />
+					<label class="color_label" style="background:{{$configs->secondary}}" for="secondary"> </label>
 				</div>
 				<div class="row">
 					<label class="half">Tema:</label>
@@ -58,11 +50,9 @@
 			@endif
 		</form>
 		@if($errors->any())
-			@foreach($errors as $error)
-			<div class="row">
-				<span class="text-error">{{$error}}</span>
-			</div>
-			@endforeach
+		@foreach($errors->all() as $error)
+			<strong class="text-error half">{{$error}}</strong>
+		@endforeach
 		@endif
 		@if(isset($response))
 		<script type="text/javascript"> snackBar({{$response}}, "SUCCESS");</script>

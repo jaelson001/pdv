@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Configuration;
+use App\Models\Company;
 use App\Models\User;
 
 class DatabaseSeeder extends Seeder
@@ -19,17 +20,23 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\Product::factory(5)->create();
 
+        Company::factory()->create([
+            'name' => 'Êxodo',
+            'document' => "1234567890001",
+        ]);
         User::factory()->create([
             'name' => 'Jaelson',
+            'admin' => 1,
+            'company_id' => 1,
             'email' => 'jaelsonjacinto@outlook.com',
             'password' => Hash::make("Jesus1diavira!"),
         ]);
 
         $defaults = [
-            "primary_color"=> "#dedede",
-            "accent_color"=> "#ff8915",
-            "accent_secondary"=> "#242424",
-            "theme"=> "dark",//dark, light, system
+            "primary"=> "#333333",
+            "accent"=> "#ff8915",
+            "secondary"=> "#242424",
+            "theme"=> "light",//dark, light, system
             "logo"=> "public/logo.ico",
         ];
         foreach($defaults as $key=> $value){

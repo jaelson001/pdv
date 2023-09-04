@@ -1,7 +1,8 @@
-@php
-	$configs = \App\Models\Configuration::asArray();
-	$barColor = \App\Models\Configuration::sideTextColor($configs->accent_secondary);
-@endphp
+@php		
+	$id = auth()?->user()?->company_id;		
+	$company = \App\Models\Configuration::asObject($id);		
+	$barColor = \App\Models\Configuration::sideTextColor($company->secondary);
+@endphp		
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -15,7 +16,7 @@
 	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	    <link rel="stylesheet" type="text/css" href="{{Vite::asset('resources/css/app.css')}}">
 	    <style type="text/css">
-	    	@switch($configs->theme)
+	    	@switch($company->theme)
 	    		@case("system")
 			    	@media (prefers-color-scheme: dark) {
 					    :root{
@@ -24,9 +25,9 @@
 					        --secondary-background:#242424;
 					        --border:#191919;
 					        --danger-color:#b93c3c;
-					        @foreach($configs as $key => $value)
-				    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
-				    		@endforeach
+					        {{ "--primary:".$company->primary.";"; }}
+							{{ "--secondary:".$company->secondary.";"; }}
+							{{ "--accent:".$company->accent.";"; }}
 					    }
 					}
 					@media (prefers-color-scheme: light) {
@@ -36,9 +37,9 @@
 					        --secondary-background:#ffffff;
 					        --border: #e3e2e0;
 					        --danger-color:#b93c3c;
-					        @foreach($configs as $key => $value)
-				    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
-				    		@endforeach
+					        {{ "--primary:".$company->primary.";"; }}
+							{{ "--secondary:".$company->secondary.";"; }}
+							{{ "--accent:".$company->accent.";"; }}
 					    }
 					}
 				@break
@@ -49,9 +50,9 @@
 					    --secondary-background:#ffffff;
 					    --border: #e3e2e0;
 					    --danger-color:#b93c3c;
-					    @foreach($configs as $key => $value)
-			    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
-			    		@endforeach
+					   {{ "--primary:".$company->primary.";"; }}
+						{{ "--secondary:".$company->secondary.";"; }}
+						{{ "--accent:".$company->accent.";"; }}
 					}
 				@break
 				@case("dark")
@@ -61,9 +62,9 @@
 					    --secondary-background:#242424;
 					    --border:#191919;
 					    --danger-color:#b93c3c;
-			    		@foreach($configs as $key => $value)
-			    		{{ "--".str_replace("_","-", $key) }}:{{ $value }};
-			    		@endforeach
+			    		{{ "--primary:".$company->primary.";"; }}
+						{{ "--secondary:".$company->secondary.";"; }}
+						{{ "--accent:".$company->accent.";"; }}
 					}
 			@endswitch
 			.menu_item{
@@ -74,6 +75,7 @@
 	    @auth
 	    <script>
 	    	window.user = "{{ auth()->user()->name }}"
+	    	window.usr = "{{ base64_encode(json_encode(auth()->user())) }}"
 	    </script>
 	    @endauth
 	    <style>

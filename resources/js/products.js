@@ -40,7 +40,8 @@ document.addEventListener("click", (event) => {
     if(x.getAttribute("data-delete") != undefined){
     	let conf = confirm("Deseja mesmo excluir esse item?");
     	if(conf){
-    		fetch("/api/product/"+x.getAttribute("data-delete"), {
+    		let id = x.getAttribute("data-delete");
+    		fetch(`/api/product/${id}`, {
     			method:"DELETE"
     		}).then((res) => res.json()).then((response) => {
     			if(response.success != undefined){

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Company;
 
 class Configuration extends Model
 {
@@ -19,11 +20,17 @@ class Configuration extends Model
         return $luminance > 0.5 ? "#333" : "#eee";
     }
 
-    public static function asArray(){
-        $configs = self::all();
-        $c = [];
-        foreach($configs as $item){ $c[$item->key] = $item->value; }
-        $configs = json_decode(json_encode($c));
+    public static function asObject($id = null){
+        $configs = null;
+        if($id != null){
+            $configs = Company::find($id);
+            return $configs;
+        }else{
+            $configs = Configuration::all();
+            $c = [];
+            foreach($configs as $item){ $c[$item->key] = $item->value; }
+            $configs = json_decode(json_encode($c));
+        }
         return $configs;
     }
 }
