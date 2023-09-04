@@ -84,10 +84,10 @@
 						<td>{{$item->quantity}}</td>
 						<td class="text-success">{{"R$".number_format(($item->price / 100), 2, ",", "")}}</td>
 						<td style="display:flex;justify-content: space-around;">
-							<span class="editar" data-item="{{$item->id}}">
+							<span title="Editar" class="editar" data-item="{{$item->id}}">
 								<i class="bi bi-pencil-square"></i>
 							</span>
-							<span class="deletar text-danger" data-delete="{{$item->id}}">
+							<span title="Excluir" class="deletar text-danger" data-delete="{{$item->id}}">
 								<i class="bi bi-x-lg" style="pointer-events: none;"></i>
 							</span>
 						</td>

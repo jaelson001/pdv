@@ -19,9 +19,9 @@
 					@foreach($orders as $item)
 						<div class="row" style="flex-flow:row nowrap;padding-top: 0px;align-items: stretch;">
 							<div class="row order">
-								<sub class="w-100 text-primary">#{{$item->id}}: <i style="cursor: pointer;" class="bi bi-sticky"></i></sub>
-								<h4>{{ \App\Models\Order::brazilianTime($item->created_at) }}</h4>
-								<h3 class="w-100 text-accent">R${{number_format(($item->total / 100),2, ",","")}} ({{$item->payment}})</h3>
+								<sub class="w-100 text-primary">#{{$item->id}}: <i title="Recibo" style="cursor: pointer;" class="bi bi-sticky"></i></sub>
+								<h4 title="Data">{{ \App\Models\Order::brazilianTime($item->created_at) }}</h4>
+								<h3 class="w-100 text-accent" title="Total">R${{number_format(($item->total / 100),2, ",","")}} ({{$item->payment}})</h3>
 							</div>
 							<div class="row products" style="flex-flow:row wrap;">
 								<h3 class="row-user">
