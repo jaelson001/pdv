@@ -15,7 +15,7 @@ class ConfigurationController extends Controller
     public function tela(): View{
         $id = auth()->user()->company_id;
         $data = Company::find($id);
-        return view("Configuracoes", ['configs' => $data]);
+        return view("configuracoes", ['configs' => $data]);
     }
 
     public function update(Request $request): RedirectResponse{
