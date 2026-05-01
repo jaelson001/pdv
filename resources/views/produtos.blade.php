@@ -10,7 +10,7 @@
 </head>
 <body>
 	@yield("aside")
-	<form class="wrapper popup" id="popup_create" action="/product" method="POST" style="display: none;">
+	<form class="wrapper popup" id="popup_create" action="/product" method="POST" enctype="multipart/form-data" style="display: none;">
 		@csrf
 		@method("POST")
 		<label class="justify-between">Nome:
@@ -28,12 +28,15 @@
 		<label class="justify-between">Quantidade:
 			<input type="number" id="quantity" name="quantity" class="form-input" placeholder="quantidade">
 		</label>
+		<label class="justify-between">Imagem:
+			<input type="file" id="image" name="image" class="form-input" accept=".jpg,.jpeg,.png">
+		</label>
 		<div class="row">
 			<button class="btn btn-error fechar_popup" id="cancelar">Cancelar</button>
 			<button type="submit" class="btn btn-success" id="salvar_create">Salvar</button>
 		</div>
 	</form>
-	<form class="wrapper popup" id="popup_update" action="/product" method="POST" style="display: none;">
+	<form class="wrapper popup" id="popup_update" action="/product" method="POST" enctype="multipart/form-data" style="display: none;">
 		@csrf
 		@method("PUT")
 		<input type="hidden" name="id" id="update_id" class="form-input" value="">
@@ -48,6 +51,9 @@
 		</label>
 		<label class="justify-between">Quantidade:
 			<input type="number" name="quantity" id="update_quantity" class="form-input" placeholder="quantidade">
+		</label>
+		<label class="justify-between">Imagem:
+			<input type="file" name="image" id="update_image" class="form-input" accept=".jpg,.jpeg,.png">
 		</label>
 		<div class="row">
 			<button class="btn btn-error fechar_popup" id="cancelar">Cancelar</button>
@@ -72,6 +78,7 @@
 						<th>Descrição</th>
 						<th>Quantidade</th>
 						<th>Preço</th>
+						<th>Imagem</th>
 						<th style="text-align: center;">Ações</th>
 					</thead>
 					<tbody>
@@ -83,6 +90,13 @@
 						<td>{{$item->description}}</td>
 						<td>{{$item->quantity}}</td>
 						<td class="text-success">{{"R$".number_format(($item->price / 100), 2, ",", "")}}</td>
+						<td>
+							@if($item->image)
+								<img src="{{ asset('storage/' . $item->image) }}" alt="Imagem do produto" style="width: 50px; height: 50px; object-fit: cover;">
+							@else
+								Sem imagem
+							@endif
+						</td>
 						<td style="display:flex;justify-content: space-around;">
 							<span title="Editar" class="editar" data-item="{{$item->id}}">
 								<i class="bi bi-pencil-square"></i>

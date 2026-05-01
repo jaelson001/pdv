@@ -25,6 +25,7 @@
                             <th>Descrição</th>
                             <th>Quantidade</th>
                             <th>Preço</th>
+                            <th>Imagem</th>
                             <th></th>
                         </thead>
                         <tbody id="list">

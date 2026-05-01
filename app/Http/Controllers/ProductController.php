@@ -9,7 +9,8 @@ use DB;
 
 class ProductController extends Controller
 {
-    public function tela(): View{
+    public function tela(): View
+    {
         //busca produtos 
         $produtos = Product::all();
 
@@ -17,13 +18,15 @@ class ProductController extends Controller
         return view("produtos", ["products" => $produtos]);
     }
 
-    public function create(Request $request): View{
+    public function create(Request $request): View
+    {
         //validate
         $request->validate([
             "code" => "required|unique:products|min_digits:13|max_digits:13", //codigo de barras
             "name" => "required",
             "price" => "required|min:1",
-            "quantity" => "required|min:0"
+            "quantity" => "required|min:0",
+            "image" => "nullable|image|mimes:jpeg,png,jpg|max:2048"
         ],[
             "code.required" => "Código de barras é obrigatório",
             "code.unique" => "Código de barras já cadastrado",
@@ -33,11 +36,18 @@ class ProductController extends Controller
             "price.min" => "Preço não pode ser zerado",
             "quantity.required" => "Quantidade é obrigatória",
             "quantity.min" => "Quantidade não pode ser negativa",
+            "image.image" => "O arquivo deve ser uma imagem",
+            "image.mimes" => "A imagem deve ser do tipo JPG ou PNG",
+            "image.max" => "A imagem não pode ser maior que 2MB"
         ]);
 
         //save
         $produto = new Product();
-        $res = $produto->fill($request->except("_token", "_method"))->save();
+        $data = $request->except("_token", "_method");
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('products', 'public');
+        }
+        $res = $produto->fill($data)->save();
 
         //busca produtos 
         $products = Product::all();
@@ -49,22 +59,31 @@ class ProductController extends Controller
         return view("produtos", ["products" => $products]);
     }
 
-    public function update(Request $request): View{
+    public function update(Request $request): View
+    {
         //validate
         $request->validate([
             "name" => "required",
             "price" => "required|min:1",
-            "quantity" => "required|min:0"
+            "quantity" => "required|min:0",
+            "image" => "nullable|image|mimes:jpeg,png,jpg|max:2048"
         ],[
             "name.required" => "Nome é obrigatório",
             "price.required" => "Preço é obrigatório",
             "price.min" => "Preço não pode ser zerado",
             "quantity.required" => "Quantidade é obrigatória",
             "quantity.min" => "Quantidade não pode ser negativa",
+            "image.image" => "O arquivo deve ser uma imagem",
+            "image.mimes" => "A imagem deve ser do tipo JPG ou PNG",
+            "image.max" => "A imagem não pode ser maior que 2MB"
         ]);
         //save
         $product = Product::find($request->id);
-        $res = $product->update($request->except("id","_token", "_method"));
+        $data = $request->except("id","_token", "_method");
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('products', 'public');
+        }
+        $res = $product->update($data);
         //busca produtos 
         $products = Product::all();
         //return view
@@ -74,7 +93,8 @@ class ProductController extends Controller
         return view("produtos", ["products" => $products]);
     }
 
-    public function delete(int $id): string{
+    public function delete(int $id): string
+    {
         //delete $id
         $res = Product::find($id)->delete();
 
@@ -85,12 +105,10 @@ class ProductController extends Controller
         return json_encode(["success" => "Produto excluído"]);
     }
 
-    public function research($company_id, $code): string{
-        $user = User::find($request->user);
-        if($user == null){ return '{"error":"Produto não cadastrado"}';}
-
-        $produto = Product::select("code", "name", "company_id", "description", \DB::raw("1 as quantity"), "price")
-            ->where("code", $code)->where("company_id", $user->company_id)->first();
+    public function research($company_id, $code): string
+    {
+        $produto = Product::select("code", "name", "company_id", "description", \DB::raw("1 as quantity"), "price", "image")
+            ->where("code", $code)->where("company_id", $company_id)->first();
         $res = isset($produto->code) ? json_encode($produto) : '{"error":"Produto não cadastrado"}';
         return $res;
     }

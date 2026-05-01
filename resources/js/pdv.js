@@ -5,9 +5,10 @@ window.cart = {
         for(let i = 0; i < this.lista.length; i++){ t += this.lista[i].price; }
         return t;
     },
-    'add':function(code){
-        let comp = atob(window.usr).company_id;
-        fetch(`/api/product/${comp}/${code}`).then(res => res.json()).then((response) => {
+    'add':function(code) {
+        let comp = JSON.parse(atob(window.usr))
+        comp = comp.company_id;
+        fetch("/api/product/"+comp+"/"+code).then(res => res.json()).then((response) => {
             //create list item from array values of response
             if(response.error != undefined){
                 console.info(response);
@@ -50,6 +51,13 @@ const createListItems = (lista, destiny) => {
                 case "code":
                     cell.classList.add("text-accent"); 
                     cell.innerText = data[i]; 
+                    break;
+                case "image":
+                    if (data[i]) {
+                        cell.innerHTML = `<img src="/storage/${data[i]}" alt="Imagem" style="width: 50px; height: 50px; object-fit: cover;">`;
+                    } else {
+                        cell.innerText = "Sem imagem";
+                    }
                     break;
                 case "company_id"://ignora
                     break;

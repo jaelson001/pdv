@@ -42,3 +42,13 @@ Route::controller(AuthController::class)->group(function(){
     Route::post("/registrar", "registrar");
     Route::get("/sair", "sair");
 });
+
+Route::group(["prefix" => "api"], function(){
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get("/product/{company_id}/{code}", [ProductController::class, "research"]);//Cause the user load the barcode to research
+    Route::delete("/product/{id}", [ProductController::class, "delete"]);
+    Route::post("order", [PdvController::class, "order"]);
+});

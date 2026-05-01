@@ -17,12 +17,3 @@ use App\Http\Controllers\ConfigurationController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::controller(ProductController::class)->group(function(){
-    Route::get("/product/{company_id}/{code}", "research");//Cause the user load the barcode to research
-    Route::delete("/product/{id}", "delete");
-});
-Route::post("order", [PdvController::class, "order"]);
